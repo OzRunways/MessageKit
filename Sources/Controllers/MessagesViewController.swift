@@ -46,6 +46,13 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     ///
     /// The default value of this property is `false`.
     open var maintainPositionOnKeyboardFrameChanged: Bool = false
+    
+    /// A Boolean value that determines whether the `MessagesCollectionView`
+    /// is embedded in another view. When this property is `true` the keyboard
+    /// state does not affect the location of the text in the view.
+    ///
+    /// The default value of this property is `false`.
+    open var embeddedViewControllerMode: Bool = false
 
     open override var canBecomeFirstResponder: Bool {
         return true
@@ -99,7 +106,9 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
         if isFirstLayout {
             defer { isFirstLayout = false }
             addKeyboardObservers()
-            messageCollectionViewBottomInset = keyboardOffsetFrame.height
+            if !embeddedViewControllerMode {
+                messageCollectionViewBottomInset = keyboardOffsetFrame.height
+            }
         }
         adjustScrollViewInset()
     }

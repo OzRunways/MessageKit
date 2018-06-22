@@ -52,6 +52,7 @@ extension MessagesViewController {
 
     @objc
     private func handleKeyboardDidChangeState(_ notification: Notification) {
+        if embeddedViewControllerMode { return }        
         guard let keyboardEndFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         
         guard !isMessagesControllerBeingDismissed else { return }
